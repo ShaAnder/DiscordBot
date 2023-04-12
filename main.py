@@ -10,7 +10,7 @@ import logging
 
 ### --- LOGGER --- ###
 
-#setting up a logger, will output the logs from nextcord to a file for viewing instead of leaving them in the consoleimport nextcord
+#setting up a logger, will output the logs from nextcord to a file for viewing instead of leaving them in the console
 logger = logging.getLogger('nextcord')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='nextcord.log', encoding='utf-8', mode='w')
@@ -35,14 +35,13 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="s!", intents=intents) 
 
 #bot ready up message
-
 @bot.event
 async def on_ready():
     print("Spooky bot is good to go!")
 
 ### --- COGS --- ###
 
-#cog setup, it will look in cogs directory for python files and load them with the extension sliced off 
+#cog setup, it will look in cogs directory for python files and load them with the extension sliced off and then feed it into the extensions 
 for fn in os.listdir("./cogs"):
     if fn.endswith(".py"):
         bot.load_extension(f"cogs.{fn[:-3]}")
