@@ -46,22 +46,33 @@ for fn in os.listdir("./cogs"):
     if fn.endswith(".py"):
         bot.load_extension(f"cogs.{fn[:-3]}")
 
-# allows us to unload and reload as needed and in realtime, updated a file, just reload, buggy module? just unload
+#Allows us to load, unload and reload cogs in real time, these will be the only commands in the main file
+
+#created these variables for checks, we only want admins or mods to be able to use cog manipulation
+ADMIN = "Spooky Man"
+MODS = "Pillar Mods"
+
+#Loads a cog
 @bot.command()
+@commands.has_any_role(ADMIN, MODS)
 async def load(ctx, extension):
     bot.load_extension(f"cogs.{extension}")
     await ctx.send("Loaded Cog!")
 
+#Unloads a cog
 @bot.command()
+@commands.has_any_role(ADMIN, MODS)
 async def unload(ctx, extension):
+
     bot.unload_extension(f"cogs.{extension}")
     await ctx.send("Unloaded Cog!")
 
+#Reloads the cog
 @bot.command()
+@commands.has_any_role(ADMIN, MODS)
 async def reload(ctx, extension):
     bot.reload_extension(f"cogs.{extension}")
     await ctx.send("Reloaded Cog!")
-
 
 ### --- RUN THE BOT --- ###
 
